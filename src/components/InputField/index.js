@@ -22,7 +22,7 @@ const InputField = ({value, placeholder, fieldTitle, fieldType, image, onChange}
             :
             <div className='flex flex-col gap-2'>
                 <h1 className='text-[#737373] text-sm font-semibold'>{fieldTitle}</h1>
-                <input value={value} onChange={onChange} type={fieldType} placeholder={placeholder} className='border-2 rounded-lg w-full appearance-none px-2 py-2 outline-none'/>
+                <input value={value} onChange={onChange} type={fieldType} placeholder={placeholder} className='border-b w-full appearance-none px-2 py-2 outline-none'/>
             </div>
             }
         </div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button, ContactCard, InputField } from '../../components'
+import { Button, Card, ContactCard, InputField, Sidebar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { addContact, deleteContact, detailContact, listContact, updateContact } from '../../actions'
 import { Default } from '../../assets'
+import { LuSearch } from 'react-icons/lu'
+import moment from 'moment/moment'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -14,6 +16,10 @@ const Home = () => {
     
     const { addContactResult, detailContactResult, updateContactResult, deleteContactResult } = useSelector((state) => state.ContactReducer);
     const { listContactResult, listContactLoading, listContactError } = useSelector((state) => state.ContactReducer);
+
+    const filteredAgeOn30 = Object.values(listContactResult).filter(item => item.age > 30);
+    const filteredAgeUnder30 = Object.values(listContactResult).filter(item => item.age < 30);
+    
 
     // POST DATA
     const handleSubmit = (e) => {
@@ -80,75 +86,109 @@ const Home = () => {
     }, [deleteContactResult, dispatch])
 
     return (
-        <div className='p-5 bg-[#F8F9FB] h-screen'>
-            <div className='grid grid-rows-12 lg:grid-cols-12 gap-5'>
-                <div className='row-span-6 lg:col-span-2 flex flex-col gap-5 border-2 shadow-sm rounded-lg bg-white p-5'>
-                    <h1 className='text-center text-xl font-bold uppercase text-[#737373] border-b py-2'>Add Contact</h1>
-                    <div className='flex flex-col gap-4'>
-                        <InputField
-                            fieldTitle={'Photo'}
-                            placeholder={'Image'}
-                            fieldType={'file'}
-                            image={image}
-                            value={image}
-                        />
-                        <InputField
-                            fieldTitle={'Link Photo'}
-                            placeholder={'Input Link Photo....'}
-                            fieldType={'text'}
-                            onChange={ (e) => setImage(e.target.value) }
-                            value={image}
-                        />
-                        <InputField
-                            fieldTitle={'First Name'}
-                            placeholder={'First Name....'}
-                            fieldType={'text'}
-                            onChange={ (e) => setFirstName(e.target.value) }
-                            value={firstName}
-                        />
-                        <InputField
-                            fieldTitle={'Last Name'}
-                            placeholder={'Last Name....'}
-                            fieldType={'text'}
-                            onChange={ (e) => setLastName(e.target.value) }
-                            value={lastName}
-                        />
-                        <InputField
-                            fieldTitle={'Age'}
-                            placeholder={'Age....'}
-                            fieldType={'text'}
-                            onChange={ (e) => setAge(e.target.value) }
-                            value={age}
-                        />
-                    </div>
-                    <Button
-                        title={!detailContactResult ? 'Submit' : 'Save'}
-                        onClick={handleSubmit}
-                        color={'bg-green-500'}
-                    />
-                    {detailContactResult &&
-                        <Button
-                            title={'Cancel'}
-                            onClick={handleCancel}
-                            color={'bg-gray-500'}
-                        />
-                    }
+        <div className='flex items-center h-screen overflow-hidden'>
+            <Sidebar/>        
+            <div className='w-full h-full border py-16 px-16 space-y-10'>
+                <div className='flex items-center gap-6'>
+                    <h1 className='text-[#B8C8C5] font-bold'>{moment().format('MMM, DD YYYY')}</h1>
+                    <h1 className='text-[#B8C8C5] font-bold'>{moment().format('dddd')}</h1>
                 </div>
-                <div className='row-span-6 lg:col-span-10'>
-                    <div className='grid grid-cols-12 gap-2'>
-                        { listContact ?
+                <div className='flex items-center justify-between'>
+                    <div className='flex flex-col gap-1'>
+                        <h1 className='text-[#1C2C2B] font-bold lg:text-5xl'>Welcome To The Contact List</h1>
+                        <h1 className='text-[#1C2C2B]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h1>
+                    </div>
+                    <div className='relative'>
+                        <input className='outline-none appearance-none pl-11 pr-4 rounded-full py-2 border bg-[#F6F6F6] text-[#1C2C2B]' placeholder='Search'/>
+                        <LuSearch className='absolute top-[14px] left-4 text-[#1C2C2B]'/>
+                    </div>
+                </div>
+                <div className='flex items-center gap-3'>
+                    <Card
+                        color={'bg-[#FFF5ED]'}
+                        colorText={'text-[#C4803D]'}
+                        title={'Total Contact'}
+                        count={listContactResult.length}
+                        />
+                    <Card
+                        color={'bg-[#F0F3FF]'}
+                        colorText={'text-[#5E6298]'}
+                        title={'Under 30'}
+                        count={filteredAgeUnder30.length}
+                        />
+                    <Card
+                        color={'bg-[#E5F8FF]'}
+                        colorText={'text-[#306388]'}
+                        title={'Age Over 30'}
+                        count={filteredAgeOn30.length}
+                    />
+                </div>
+                <div className='grid grid-cols-12 gap-8'>
+                    <div className='col-span-6 p-5 space-y-4'>
+                        <div className='flex flex-col gap-4'>
+                            <InputField
+                                fieldTitle={'Photo'}
+                                placeholder={'Image'}
+                                fieldType={'file'}
+                                image={image}
+                                value={image}
+                            />
+                            <InputField
+                                fieldTitle={'Link Photo'}
+                                placeholder={'Input Link Photo....'}
+                                fieldType={'text'}
+                                onChange={ (e) => setImage(e.target.value) }
+                                value={image}
+                            />
+                            <InputField
+                                fieldTitle={'First Name'}
+                                placeholder={'First Name....'}
+                                fieldType={'text'}
+                                onChange={ (e) => setFirstName(e.target.value) }
+                                value={firstName}
+                            />
+                            <InputField
+                                fieldTitle={'Last Name'}
+                                placeholder={'Last Name....'}
+                                fieldType={'text'}
+                                onChange={ (e) => setLastName(e.target.value) }
+                                value={lastName}
+                            />
+                            <InputField
+                                fieldTitle={'Age'}
+                                placeholder={'Age....'}
+                                fieldType={'text'}
+                                onChange={ (e) => setAge(e.target.value) }
+                                value={age}
+                            />
+                        </div>
+                        <Button
+                            title={!detailContactResult ? 'Submit' : 'Save'}
+                            onClick={handleSubmit}
+                            color={'bg-[#6EED9E]'}
+                        />
+                        {detailContactResult &&
+                            <Button
+                                title={'Cancel'}
+                                onClick={handleCancel}
+                                color={'bg-[#B8C8C5]'}
+                            />
+                        }
+                    </div>
+                    <div className='col-span-6 space-y-3'>
+                        <h1 className='text-[#1C2C2B] font-bold uppercase border-b'>Contact List</h1>
+                        <div className='space-y-2 h-[500px] overflow-scroll scroll-smooth scrollbar-hide'>
+                        { listContactResult ?
                             Object.values(listContactResult).map((data, index) => {
                                 return( 
-                                    <div className='col-span-6 lg:col-span-2'>
-                                        <ContactCard
-                                            key={index}
-                                            image={data.photo === "N/A" ? Default : data.photo}
-                                            name={data.firstName + ' ' + data.lastName}
-                                            age={data.age}
-                                            onClickDelete={ () => handleDelete(data.id) }
-                                            onClickDetail={ () => dispatch(detailContact(data))}
-                                        />
-                                    </div>
+                                    <ContactCard
+                                        key={index}
+                                        image={data.photo === "N/A" ? Default : data.photo}
+                                        name={data.firstName + ' ' + data.lastName}
+                                        age={data.age}
+                                        onClickDelete={ () => handleDelete(data.id) }
+                                        onClickDetail={ () => dispatch(detailContact(data))}
+                                    />
                                 )
                             })
                             :
@@ -157,6 +197,7 @@ const Home = () => {
                             :
                             listContactError ? listContactError : 'Empty Contact Data'
                         }
+                        </div>
                     </div>
                 </div>
             </div>
