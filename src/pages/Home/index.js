@@ -86,14 +86,14 @@ const Home = () => {
     }, [deleteContactResult, dispatch])
 
     return (
-        <div className='flex items-center h-screen overflow-hidden'>
+        <div className='flex flex-col lg:flex-row items-center h-screen lg:overflow-hidden'>
             <Sidebar/>        
-            <div className='w-full h-full border py-16 px-16 space-y-10'>
+            <div className='w-full h-full lg:border py-16 lg:px-16 px-[16px] space-y-10'>
                 <div className='flex items-center gap-6'>
                     <h1 className='text-[#B8C8C5] font-bold'>{moment().format('MMM, DD YYYY')}</h1>
                     <h1 className='text-[#B8C8C5] font-bold'>{moment().format('dddd')}</h1>
                 </div>
-                <div className='flex items-center justify-between'>
+                <div className='flex flex-col lg:flex-row gap-4 items-center justify-between'>
                     <div className='flex flex-col gap-1'>
                         <h1 className='text-[#1C2C2B] font-bold lg:text-5xl'>Welcome To The Contact List</h1>
                         <h1 className='text-[#1C2C2B]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h1>
@@ -103,7 +103,7 @@ const Home = () => {
                         <LuSearch className='absolute top-[14px] left-4 text-[#1C2C2B]'/>
                     </div>
                 </div>
-                <div className='flex items-center gap-3'>
+                <div className='flex flex-col lg:flex-row items-center gap-3'>
                     <Card
                         color={'bg-[#FFF5ED]'}
                         colorText={'text-[#C4803D]'}
@@ -123,7 +123,7 @@ const Home = () => {
                         count={filteredAgeOn30.length}
                     />
                 </div>
-                <div className='grid grid-cols-12 gap-8'>
+                <div className='flex flex-col lg:grid lg:grid-cols-12 gap-8'>
                     <div className='col-span-6 p-5 space-y-4'>
                         <div className='flex flex-col gap-4'>
                             <InputField
