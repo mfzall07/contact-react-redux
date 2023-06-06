@@ -86,9 +86,9 @@ const Home = () => {
     }, [deleteContactResult, dispatch])
 
     return (
-        <div className='flex flex-col lg:flex-row items-center h-screen lg:overflow-hidden'>
+        <div className='flex flex-col lg:flex-row items-center min-h-screen h-screen'>
             <Sidebar/>        
-            <div className='w-full h-full lg:border py-16 lg:px-16 px-[16px] space-y-10'>
+            <div className='w-full h-full py-16 lg:px-16 px-[16px] space-y-10'>
                 <div className='flex items-center gap-6'>
                     <h1 className='text-[#B8C8C5] font-bold'>{moment().format('MMM, DD YYYY')}</h1>
                     <h1 className='text-[#B8C8C5] font-bold'>{moment().format('dddd')}</h1>
